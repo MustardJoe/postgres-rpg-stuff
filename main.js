@@ -22,13 +22,13 @@ id(PK) / episodeName / synopsis / airDate / Season
 QUOTES:
 id(PK) / Text / characterId(FK) / episodeId(FK) /
              or
-id(PK) / Text
+id(PK) / Text             <--- Trying this way first
 
 CHARACTERS_TO_QUOTES:
 id(PK) / characterId(FK) / quoteId(FK) / *any other columns which are related to this combo.
 
-CHARACTERS_TO_EPISODES:
-id(PK) / characterId(FK) / episodeId(FK) 
+QUOTES_TO_EPISODE:
+id(PK) / quoteId(FK) / episodeId(FK)
 
 
 //characters ---> quotes is either one to many or many to many.
