@@ -13,11 +13,11 @@ actor name
 name
 job
 
-EPISODES:
-id(PK) / episodeName / synopsis / airDate / Season
-
 CHARACTERS:
 id(PK) / Name / Bio / Actor / Job / ImgPath
+
+EPISODES:
+id(PK) / episodeName / synopsis / airDate / Season
 
 QUOTES:
 id(PK) / Text / Audience_Score / Location / episodeId(FK) /
