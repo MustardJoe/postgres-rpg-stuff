@@ -20,7 +20,9 @@ EPISODES:
 id(PK) / episodeName / synopsis / airDate / Season
 
 QUOTES:
-id(PK) / Text / Audience_Score / Location / episodeId(FK) /
+id(PK) / Text / characterId(FK) / episodeId(FK) /
+             or
+id(PK) / Text
 
 CHARACTERS_TO_QUOTES:
 id(PK) / characterId(FK) / quoteId(FK) / *any other columns which are related to this combo.
