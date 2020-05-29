@@ -1,58 +1,28 @@
+const express = require('express');
+const bodyParser = require('body-parser');
+const app = express();
+const logger = require('morgan');
+const port = process.env.PORT || 3000;
+const path = require('path');
+
+app.use(bodyParser.json());
+app.use(logger('dev'));
+app.use(
+  bodyParser.urlencoded({
+    extended: true,
+  })
+);
+
+app.get('/json', (req, res) => {
+  res.json({ info: 'Node.js, Express, and Postgres API' });
+});
+
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname + '/index.html'));
+});
 
 
-
-// UPDATE table_name
-// SET column1 = value1, column2 = value2...., columnN = valueN.
-// WHERE [condition];
-
-
-
-
-/* Episodes
-//  number
-//  air_date
-//  synopsis
-
-episode, 1, 10/10/1989, Sheriff discover's Laura Palmers body.
-
-// episodes --> characters is many to many
-// Characters
-img
-bio
-actor name
-name
-job
-
-CHARACTERS:
-id(PK) / Name / Bio / Actor / Job / ImgPath
-
-EPISODES:
-id(PK) / episodeName / synopsis / airDate / Season
-
-QUOTES:
-id(PK) / Text /  episodeId(FK)  <-- episodes tracked here in quotes because each quote
-//                                   can only come from one episode, but characters stored
-//                                 elsewhere because a quote can be bit of dialoge between
-//                                 more than one character.
-
-CHARACTERS_TO_QUOTES:
-id(PK) / characterId(FK) / quoteId(FK) / *any other columns which are related to this combo.
-
-QUOTES_TO_EPISODE:
-id(PK) / quoteId(FK) / episodeId(FK)
-
-
-//characters ---> quotes is either one to many or many to many.
-// Quotes
-text
-location of quote
-audience_score
-
-// episodes to quotes one to many
-
-
-
-// data that is similar but not identical
-// organized via tables
-// it allows us to group it together.
-*/
+app.listen(port, () => {
+  /* eslint-disable-next-line no-console */
+  console.log(`Server running on port ${port}. Welcome to SkyNet.`);
+});
