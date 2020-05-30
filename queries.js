@@ -6,4 +6,4 @@ const pool = new Pool({
   database: 'code-bros',
   password: 'password',
   port: 5432,
-})
+});
