@@ -21,6 +21,10 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname + '/index.html'));
 });
 
+app.get('/godzilla.jpg', (req, res) => {
+  res.sendFile(path.join(__dirname + '/godsilla.jpg'));
+});
+
 
 app.listen(port, () => {
   /* eslint-disable-next-line no-console */
