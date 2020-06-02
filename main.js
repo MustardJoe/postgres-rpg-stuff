@@ -21,6 +21,7 @@ app.get('/json', (req, res) => {
 app.get('/characters', db.getCharacters);
 app.get('/characters/:id', db.getCharactersById);
 app.post('/characters', db.createCharacter);
+app.put('/characters/:id', db.updateCharacter);
 app.delete('/characters/:id', db.deleteCharacter);
 
 app.get('/', (req, res) => {

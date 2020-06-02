@@ -8,6 +8,7 @@ const pool = new Pool({
   port: 5432,
 });
 
+//ROUTE FUNCTIONS for CHARACTERS
 const getCharacters = (req, res) => {
   pool.query('SELECT * FROM characters ORDER BY id ASC', (error, results) => {
     if(error) {
@@ -20,7 +21,7 @@ const getCharacters = (req, res) => {
 const getCharactersById = (req, res) => {
   const id = parseInt(req.params.id);
 
-  pool.query('SELECT * FROM users WHERE id = $1', [id], (error, results) => {
+  pool.query('SELECT * FROM characters WHERE id = $1', [id], (error, results) => {
     if(error) {
       throw error;
     }
@@ -29,6 +30,7 @@ const getCharactersById = (req, res) => {
 };
 
 const createCharacter = (req, res) => {
+  console.log(req.body);  //last create got msg "...has been added with ID undefined"
   const { name, actor, job, imgpath } = req.body;
 
   pool.query('INSERT INTO  characters (name, actor, job, imgpath) VALUES ($1, $2, $3, $4)',
@@ -37,9 +39,25 @@ const createCharacter = (req, res) => {
         throw error;
       }
       res.status(201).send(
-        `Character ${req.name} has been added (POSTED) to the database with Character ID: ${res.insertId}`
+        `Character ${name} has been added (POSTED) to the database with Character ID: ${res.insertId}`
       );
     });
+};
+
+const updateCharacter = (req, res) => {
+  const id = parseInt(req.params.id);
+  const { name, actor, job, imgpath } = req.body;
+
+  pool.query(
+    'UPDATE users SET name = $2, actor = $3, job = $4, imgpath = $5, WHERE id = $1',
+    [id, name, actor, job, imgpath],
+    (error, result) => {
+      if(error) {
+        throw error;
+      }
+      res.status(200).send(`Character - ${name} with ID - ${id} has been updated.`);
+    }
+  );
 };
 
 const deleteCharacter = (req, res) => {
@@ -53,9 +71,14 @@ const deleteCharacter = (req, res) => {
   });
 };
 
+
+//ROUTE FUNCTIONS for EPISODES
+
+
 module.exports = {
   getCharacters,
   getCharactersById,
   createCharacter,
+  updateCharacter,
   deleteCharacter,
 };
