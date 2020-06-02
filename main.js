@@ -32,6 +32,13 @@ app.post('/episodes', db.createEpisode);
 app.put('/episodes/:id', db.updateEpisode);
 app.delete('/episodes/:id', db.deleteEpisode);
 
+//Quotes Routes
+app.get('/quotes', db.getQuotes);
+app.get('/quotes/:id', db.getQuotesById);
+app.post('/quotes', db.createQuote);
+app.put('/quotes/:id', db.updateQuote);
+app.delete('/quotes/:id', db.deleteQuote);
+
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname + '/index.html'));
 });
