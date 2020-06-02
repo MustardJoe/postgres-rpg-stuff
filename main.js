@@ -18,11 +18,19 @@ app.get('/json', (req, res) => {
   res.json({ info: 'Node.js, Express, and Postgres API' });
 });
 
+//Characters Routes
 app.get('/characters', db.getCharacters);
 app.get('/characters/:id', db.getCharactersById);
 app.post('/characters', db.createCharacter);
 app.put('/characters/:id', db.updateCharacter);
 app.delete('/characters/:id', db.deleteCharacter);
+
+//Episodes Routes
+app.get('/episodes', db.getEpisodes);
+app.get('/episodes/:id', db.getEpisodesById);
+app.post('/episodes', db.createEpisode);
+app.put('/episodes/:id', db.updateEpisode);
+app.delete('/episodes/:id', db.deleteEpisode);
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname + '/index.html'));
