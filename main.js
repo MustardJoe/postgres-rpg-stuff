@@ -32,6 +32,8 @@ app.post('/episodes', db.createEpisode);
 app.put('/episodes/:id', db.updateEpisode);
 app.delete('/episodes/:id', db.deleteEpisode);
 
+app.get('/episodes/:id/quotes', db.getQuotesByEpisode);
+
 //Quotes Routes
 app.get('/quotes', db.getQuotes);
 app.get('/quotes/:id', db.getQuotesById);
