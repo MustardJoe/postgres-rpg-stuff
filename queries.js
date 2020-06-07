@@ -108,6 +108,24 @@ const deleteCharacter = (req, res) => {
   });
 };
 
+/*
+* SELECT authors.id, authors.name, books.id, books.name 
+*     FROM authors JOIN books 
+*         ON books.author_id = authors.id 
+*     WHERE authors.id = ${some author id};
+*/
+
+const getCharacterWithQuotes = (req, res) => {
+  const id = parseInt(req.params.id);
+
+  pool.query('SELECT characters.name, character.id AS characterID, quotes.id AS quoteId FROM quotes_to_characters JOIN characters ON quotes_to_characters.character_id = characters.id  WHERE id = $1', [id], (error, results) => {
+    if(error) {
+      throw error;
+    }
+    res.status(200).json(results.rows);
+  });
+};
+
 
 //ROUTE FUNCTIONS for EPISODES
 const getEpisodes = (req, res) => {
@@ -129,29 +147,11 @@ const getEpisodesById = (req, res) => {
     res.status(200).json(results.rows);
   });
 };
-/*
-* SELECT authors.id, authors.name, books.id, books.name 
-*     FROM authors JOIN books 
-*         ON books.author_id = authors.id 
-*     WHERE authors.id = ${some author id};
-*/
-const getQuotesByEpisode = (req, res) => {
-  const episodeId = parseInt(req.params.id);
-
-  pool.query('SELECT episodes.synopsis, episodes.episodeName, quotes.id AS quotesId, quotes.text FROM episodes JOIN quotes ON episodes.id = quotes.episode_id WHERE episodes.id = $1',
-    [episodeId],
-    (error, results) => {
-      if(error) {
-        throw error;
-      }
-      res.status(200).json(results.rows);
-    });
-};
 
 const createEpisode = (req, res) => {
   console.log(req.body);  //last create got msg "...has been added with ID undefined"
   const { episodename, synopsis, airdate, season } = req.body;
-
+  
   pool.query('INSERT INTO episodes (episodename, synopsis, airdate, season) VALUES ($1, $2, $3, $4)',
     [episodename, synopsis, airdate, season], (error, result) => {
       if(error) {
@@ -162,11 +162,11 @@ const createEpisode = (req, res) => {
       );
     });
 };
-
+  
 const updateEpisode = (req, res) => {
   const id = parseInt(req.params.id);
   const { episodename, synopsis, airdate, season } = req.body;
-
+  
   pool.query(
     'UPDATE episodes SET episodename = $2, synopsis = $3, airdate = $4, season = $5, WHERE id = $1',
     [episodename, synopsis, airdate, season],
@@ -178,16 +178,29 @@ const updateEpisode = (req, res) => {
     }
   );
 };
-
+  
 const deleteEpisode = (req, res) => {
   const id = parseInt(req.params.id);
-
+  
   pool.query('DELETE FROM episodes WHERE id = $1', [id], (error, result) => {
     if(error) {
       throw error;
     }
     res.status(200).send(`Episode with ID: ${id} has been DELETED`);
   });
+};
+
+const getEpisodeWithQuotes = (req, res) => {
+  const episodeId = parseInt(req.params.id);
+
+  pool.query('SELECT episodes.synopsis, episodes.episodeName, quotes.id AS quotesId, quotes.text FROM episodes JOIN quotes ON episodes.id = quotes.episode_id WHERE episodes.id = $1',
+    [episodeId],
+    (error, results) => {
+      if(error) {
+        throw error;
+      }
+      res.status(200).json(results.rows);
+    });
 };
 
 //ROUTE FUNCTIONS for QUOTES
@@ -260,12 +273,13 @@ module.exports = {
   createCharacter,
   updateCharacter,
   deleteCharacter,
+  getCharacterWithQuotes,
   getEpisodes,
   getEpisodesById,
   createEpisode,
   updateEpisode,
   deleteEpisode,
-  getQuotesByEpisode,
+  getEpisodeWithQuotes,
   getQuotes,
   getQuotesById,
   createQuote,

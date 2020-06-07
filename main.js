@@ -25,6 +25,8 @@ app.post('/characters', db.createCharacter);
 app.put('/characters/:id', db.updateCharacter);
 app.delete('/characters/:id', db.deleteCharacter);
 
+app.get('/characters/:id/quotes', db.getCharacterWithQuotes);
+
 //Episodes Routes
 app.get('/episodes', db.getEpisodes);
 app.get('/episodes/:id', db.getEpisodesById);
@@ -32,7 +34,7 @@ app.post('/episodes', db.createEpisode);
 app.put('/episodes/:id', db.updateEpisode);
 app.delete('/episodes/:id', db.deleteEpisode);
 
-app.get('/episodes/:id/quotes', db.getQuotesByEpisode);
+app.get('/episodes/:id/quotes', db.getEpisodeWithQuotes);
 
 //Quotes Routes
 app.get('/quotes', db.getQuotes);
