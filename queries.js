@@ -67,10 +67,12 @@ const getCharactersById = (req, res) => {
 };
 
 const createCharacter = (req, res) => {
+  /* eslint-disable-next-line no-console */
   console.log(req.body);  //last create got msg "...has been added with ID undefined"
   const { name, actor, job, imgpath } = req.body;
 
   pool.query('INSERT INTO  characters (name, actor, job, imgpath) VALUES ($1, $2, $3, $4)',
+  /* eslint-disable-next-line no-unused-vars */
     [name, actor, job, imgpath], (error, result) => {
       if(error) {
         throw error;
@@ -88,6 +90,7 @@ const updateCharacter = (req, res) => {
   pool.query(
     'UPDATE users SET name = $2, actor = $3, job = $4, imgpath = $5, WHERE id = $1',
     [id, name, actor, job, imgpath],
+    /* eslint-disable-next-line no-unused-vars */
     (error, result) => {
       if(error) {
         throw error;
@@ -100,6 +103,7 @@ const updateCharacter = (req, res) => {
 const deleteCharacter = (req, res) => {
   const id = parseInt(req.params.id);
 
+  /* eslint-disable-next-line no-unused-vars */
   pool.query('DELETE FROM characters WHERE id = $1', [id], (error, result) => {
     if(error) {
       throw error;
@@ -153,6 +157,7 @@ const createEpisode = (req, res) => {
   const { episodename, synopsis, airdate, season } = req.body;
   
   pool.query('INSERT INTO episodes (episodename, synopsis, airdate, season) VALUES ($1, $2, $3, $4)',
+    /* eslint-disable-next-line no-unused-vars */
     [episodename, synopsis, airdate, season], (error, result) => {
       if(error) {
         throw error;
@@ -170,6 +175,7 @@ const updateEpisode = (req, res) => {
   pool.query(
     'UPDATE episodes SET episodename = $2, synopsis = $3, airdate = $4, season = $5, WHERE id = $1',
     [episodename, synopsis, airdate, season],
+    /* eslint-disable-next-line no-unused-vars */
     (error, result) => {
       if(error) {
         throw error;
@@ -182,6 +188,7 @@ const updateEpisode = (req, res) => {
 const deleteEpisode = (req, res) => {
   const id = parseInt(req.params.id);
   
+  /* eslint-disable-next-line no-unused-vars */
   pool.query('DELETE FROM episodes WHERE id = $1', [id], (error, result) => {
     if(error) {
       throw error;
@@ -228,13 +235,14 @@ const createQuote = (req, res) => {
   console.log(req.body);  //last create got msg "...has been added with ID undefined"
   const { text, episode_id } = req.body;
 
-  pool.query('INSERT INTO  quotes (text, episode_id) VALUES ($1, $2)',
+  pool.query('INSERT INTO quotes (text, episode_id) VALUES ($1, $2)',
+    /* eslint-disable-next-line no-unused-vars */
     [text, episode_id], (error, result) => {
       if(error) {
         throw error;
       }
       res.status(201).send(
-        `Quote has been added (POSTED) to the database`
+        'Your Quote has been added (POSTED) to the database.'
       );
     });
 };
@@ -246,6 +254,7 @@ const updateQuote = (req, res) => {
   pool.query(
     'UPDATE text SET text = $2, episode_id = $3, WHERE id = $1',
     [id, text, episode_id],
+    /* eslint-disable-next-line no-unused-vars */
     (error, result) => {
       if(error) {
         throw error;
@@ -258,6 +267,7 @@ const updateQuote = (req, res) => {
 const deleteQuote = (req, res) => {
   const id = parseInt(req.params.id);
 
+  /* eslint-disable-next-line no-unused-vars */
   pool.query('DELETE FROM quotes WHERE id = $1', [id], (error, result) => {
     if(error) {
       throw error;
