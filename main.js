@@ -4,7 +4,9 @@ const app = express();
 const logger = require('morgan');
 const port = process.env.PORT || 3000;
 const path = require('path');
-const db = require('./queries');
+const dbquote = require('./quotesQueries');
+const dbchars = require('./charsQueries');
+const dbepis = require('./episodeQueries');
 
 app.use(bodyParser.json());
 app.use(logger('dev'));
@@ -19,33 +21,33 @@ app.get('/json', (req, res) => {
 });
 
 //Characters Routes
-app.get('/characters', db.getCharacters);
-app.get('/characters/:id', db.getCharactersById);
-app.post('/characters', db.createCharacter);
-app.put('/characters/:id', db.updateCharacter);
-app.delete('/characters/:id', db.deleteCharacter);
+app.get('/characters', dbchars.getCharacters);
+app.get('/characters/:id', dbchars.getCharactersById);
+app.post('/characters', dbchars.createCharacter);
+app.put('/characters/:id', dbchars.updateCharacter);
+app.delete('/characters/:id', dbchars.deleteCharacter);
 
-app.get('/characters/:id/quotes', db.getCharacterWithQuotes);
+// app.get('/characters/:id/quotes', db.getCharacterWithQuotes);
 
-//Episodes Routes
-app.get('/episodes', db.getEpisodes);
-app.get('/episodes/:id', db.getEpisodesById);
-app.post('/episodes', db.createEpisode);
-app.put('/episodes/:id', db.updateEpisode);
-app.delete('/episodes/:id', db.deleteEpisode);
+// Episodes Routes
+app.get('/episodes', dbepis.getEpisodes);
+app.get('/episodes/:id', dbepis.getEpisodesById);
+app.post('/episodes', dbepis.createEpisode);
+app.put('/episodes/:id', dbepis.updateEpisode);
+app.delete('/episodes/:id', dbepis.deleteEpisode);
 
-app.get('/episodes/:id/quotes', db.getEpisodeWithQuotes);
+app.get('/episodes/:id/quotes', dbepis.getEpisodeWithQuotes);
 
 //Quotes Routes
-app.get('/quotes', db.getQuotes);
-app.get('/quotes/:id', db.getQuotesById);
-app.post('/quotes', db.createQuote);
-app.put('/quotes/:id', db.updateQuote);
-app.delete('/quotes/:id', db.deleteQuote);
+// app.get('/quotes', db.getQuotes);
+// app.get('/quotes/:id', db.getQuotesById);
+// app.post('/quotes', db.createQuote);
+// app.put('/quotes/:id', db.updateQuote);
+// app.delete('/quotes/:id', db.deleteQuote);
 
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname + '/index.html'));
-});
+// app.get('/', (req, res) => {
+//   res.sendFile(path.join(__dirname + '/index.html'));
+// });
 
 
 
