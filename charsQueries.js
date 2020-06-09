@@ -75,13 +75,6 @@ const deleteCharacter = (req, res) => {
   });
 };
 
-/*
-* SELECT authors.id, authors.name, books.id, books.name 
-*     FROM authors JOIN books 
-*         ON books.author_id = authors.id 
-*     WHERE authors.id = ${some author id};
-*/
-
 const getCharacterWithQuotes = (req, res) => { //this doesn't work yet!! need to read up on 3 table joins in sql
   const id = parseInt(req.params.id);
 

@@ -85,3 +85,10 @@ more notes:
  * 8 total rows
  * 
  */
+
+ /*
+* SELECT authors.id, authors.name, books.id, books.name 
+*     FROM authors JOIN books 
+*         ON books.author_id = authors.id 
+*     WHERE authors.id = ${some author id};
+*/
