@@ -27,7 +27,7 @@ app.post('/characters', dbchars.createCharacter);
 app.put('/characters/:id', dbchars.updateCharacter);
 app.delete('/characters/:id', dbchars.deleteCharacter);
 
-// app.get('/characters/:id/quotes', db.getCharacterWithQuotes);
+app.get('/characters/:id/quotes', dbchars.getCharacterWithQuotes);
 
 // Episodes Routes
 app.get('/episodes', dbepis.getEpisodes);
@@ -39,15 +39,15 @@ app.delete('/episodes/:id', dbepis.deleteEpisode);
 app.get('/episodes/:id/quotes', dbepis.getEpisodeWithQuotes);
 
 //Quotes Routes
-// app.get('/quotes', db.getQuotes);
-// app.get('/quotes/:id', db.getQuotesById);
-// app.post('/quotes', db.createQuote);
-// app.put('/quotes/:id', db.updateQuote);
-// app.delete('/quotes/:id', db.deleteQuote);
+app.get('/quotes', dbquote.getQuotes);
+app.get('/quotes/:id', dbquote.getQuotesById);
+app.post('/quotes', dbquote.createQuote);
+app.put('/quotes/:id', dbquote.updateQuote);
+app.delete('/quotes/:id', dbquote.deleteQuote);
 
-// app.get('/', (req, res) => {
-//   res.sendFile(path.join(__dirname + '/index.html'));
-// });
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname + '/index.html'));
+});
 
 
 

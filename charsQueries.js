@@ -85,7 +85,7 @@ const deleteCharacter = (req, res) => {
 const getCharacterWithQuotes = (req, res) => { //this doesn't work yet!! need to read up on 3 table joins in sql
   const id = parseInt(req.params.id);
 
-  pool.query('SELECT characters.name, character.id AS characterID, quotes.id AS quoteId FROM quotes_to_characters JOIN characters ON quotes_to_characters.character_id = characters.id  WHERE id = $1', [id], (error, results) => {
+  pool.query('SELECT characters.id AS character_id, characters.name, quotes.id AS quote_id, quotes.text FROM characters JOIN quotes_to_characters ON characters.id = quotes_to_characters.character_id JOIN quotes on quotes_to_characters.quote_id = quotes.id  WHERE characters.id = $1', [id], (error, results) => {
     if(error) {
       throw error;
     }
