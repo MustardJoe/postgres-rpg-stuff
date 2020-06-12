@@ -1,21 +1,24 @@
-const Pool = require('pg').Pool;
-
-const pool = new Pool({
-  user: 'jon',
-  host: 'localhost',
-  database: 'code_bros',
-  password: 'password',
-  port: 5432,
-});
-
+const pool = require('./pool');
+// var knex = require('knex')({
+//   client: 'pg',
+//   connection: {
+//     host : '127.0.0.1',
+//     user : 'your_database_user',
+//     password : 'your_database_password',
+//     database : 'myapp_test'
+//   }
+// });
 //ROUTE FUNCTIONS for CHARACTERS
 const getCharacters = (req, res) => {
-  pool.query('SELECT * FROM characters ORDER BY id ASC', (error, results) => {
-    if(error) {
-      throw error;
-    }
-    res.status(200).json(results.rows);
+  pool.select().table('characters').then(characters => {
+    console.log('data', characters);
+    res.send(characters);
+  
+  }).catch(error => {
+    return res.error(error);
   });
+  // pool.query('SELECT * FROM characters ORDER BY id ASC', (error, results) => {
+  // });
 };
 
 const getCharactersById = (req, res) => {
@@ -75,10 +78,11 @@ const deleteCharacter = (req, res) => {
   });
 };
 
-const getCharacterWithQuotes = (req, res) => { //this doesn't work yet!! need to read up on 3 table joins in sql
+const getCharacterWithQuotes = (req, res) => { 
   const id = parseInt(req.params.id);
 
-  pool.query('SELECT characters.id AS character_id, characters.name, quotes.id AS quote_id, quotes.text FROM characters JOIN quotes_to_characters ON characters.id = quotes_to_characters.character_id JOIN quotes on quotes_to_characters.quote_id = quotes.id  WHERE characters.id = $1', [id], (error, results) => {
+  pool.query(`SELECT characters.id AS character_id, characters.name, quotes.id AS quote_id, quotes.text
+  FROM characters JOIN quotes_to_characters ON characters.id = quotes_to_characters.character_id JOIN quotes on quotes_to_characters.quote_id = quotes.id  WHERE characters.id = $1`, [id], (error, results) => {
     if(error) {
       throw error;
     }

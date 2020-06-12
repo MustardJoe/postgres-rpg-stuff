@@ -1,14 +1,16 @@
-const Pool = require('pg').Pool;
+// const Pool = require('pg').Pool;
 
-const pool = new Pool({
-  user: 'jon',
-  host: 'localhost',
-  database: 'code_bros',
-  password: 'password',
-  port: 5432,
-});
+// const pool = new Pool({
+//   user: 'jon',
+//   host: 'localhost',
+//   database: 'code_bros',
+//   password: 'password',
+//   port: 5432,
+// });
 
+const pool = require('./pool');
 
+console.log(pool.pool);
 
 //ROUTE FUNCTIONS for QUOTES
 const getQuotes = (req, res) => {
@@ -75,7 +77,6 @@ const deleteQuote = (req, res) => {
     res.status(200).send(`Quote with ID: ${id} has been DELETED`);
   });
 };
-
 
 module.exports = {
   getQuotes,

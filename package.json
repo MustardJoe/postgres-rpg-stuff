@@ -10,7 +10,8 @@
   "author": "Jon Forney => @GodzillaJonny",
   "license": "ISC",
   "dependencies": {
-    "eslint": "^7.1.0"
+    "eslint": "^7.1.0",
+    "knex": "^0.21.1"
   },
   "devDependencies": {
     "express": "^4.17.1",
