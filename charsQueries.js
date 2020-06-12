@@ -1,19 +1,9 @@
 const pool = require('./pool');
-// var knex = require('knex')({
-//   client: 'pg',
-//   connection: {
-//     host : '127.0.0.1',
-//     user : 'your_database_user',
-//     password : 'your_database_password',
-//     database : 'myapp_test'
-//   }
-// });
+
 //ROUTE FUNCTIONS for CHARACTERS
 const getCharacters = (req, res) => {
   pool.select().table('characters').then(characters => {
-    console.log('data', characters);
     res.send(characters);
-  
   }).catch(error => {
     return res.error(error);
   });
