@@ -7,6 +7,7 @@ const getCharacters = (req, res) => {
   }).catch(error => {
     return res.error(error);
   });
+  // old sql lang query
   // pool.query('SELECT * FROM characters ORDER BY id ASC', (error, results) => {
   // });
 };
