@@ -15,29 +15,49 @@ const getCharacters = (req, res) => {
 const getCharactersById = (req, res) => {
   const id = parseInt(req.params.id);
 
-  pool.query('SELECT * FROM characters WHERE id = $1', [id], (error, results) => {
-    if(error) {
-      throw error;
-    }
-    res.status(200).json(results.rows);
-  });
+  pool.select().table('characters').where('id', id)
+    .then(characters => {
+      res.send(characters);
+    }).catch(error => {
+      return res.error(error);
+    });
+  //old sql query
+  // pool.query('SELECT * FROM characters WHERE id = $1', [id], (error, results) => {
+  //   if(error) {
+  //     throw error;
+  //   }
+  //   res.status(200).json(results.rows);
+  // });
 };
 
 const createCharacter = (req, res) => {
+  //this route needs work - character posts to db, but browser/postman hang, waiting for
+  //'end or response' or whatever
+
   /* eslint-disable-next-line no-console */
   console.log(req.body);  //last create got msg "...has been added with ID undefined"
   const { name, actor, job, imgpath } = req.body;
 
-  pool.query('INSERT INTO  characters (name, actor, job, imgpath) VALUES ($1, $2, $3, $4)',
-  /* eslint-disable-next-line no-unused-vars */
-    [name, actor, job, imgpath], (error, result) => {
-      if(error) {
-        throw error;
-      }
-      res.status(201).send(
-        `Character ${name} has been added (POSTED) to the database with Character ID: ${res.insertId}`
-      );
+  pool('characters').insert({ name: name, actor: actor, job: job, imgpath: imgpath });
+  res => {
+    console.log('im here, in the dot then for create');
+    res.send(
+      `Character ${name} has been added (POSTED) to the database with Character ID: ${res.insertId}`
+    ).catch(error => {
+      return res(error);
     });
+
+    // pool.query('INSERT INTO  characters (name, actor, job, imgpath) VALUES ($1, $2, $3, $4)',
+    // /* eslint-disable-next-line no-unused-vars */
+    //   [name, actor, job, imgpath], (error, result) => {
+    //     if(error) {
+    //       throw error;
+    //     }
+    //     res.status(201).send(
+    //       `Character ${name} has been added (POSTED) to the database with Character ID: ${res.insertId}`
+    //     );
+    //   });
+  };
 };
 
 const updateCharacter = (req, res) => {
@@ -60,13 +80,23 @@ const updateCharacter = (req, res) => {
 const deleteCharacter = (req, res) => {
   const id = parseInt(req.params.id);
 
-  /* eslint-disable-next-line no-unused-vars */
-  pool.query('DELETE FROM characters WHERE id = $1', [id], (error, result) => {
-    if(error) {
-      throw error;
-    }
-    res.status(200).send(`Character with ID: ${id} has been DELETED`);
-  });
+  pool('characters').where('id', id).del();
+  res => {
+    console.log('im here in character delete, i hope the response doesnt spin/hang forever');
+    res.send(`Character id ID: ${id} has been deleted from table 'characters'`)
+      .catch(error => {
+        return res(error);
+      });
+
+  };
+
+  // /* eslint-disable-next-line no-unused-vars */
+  // pool.query('DELETE FROM characters WHERE id = $1', [id], (error, result) => {
+  //   if(error) {
+  //     throw error;
+  //   }
+  //   res.status(200).send(`Character with ID: ${id} has been DELETED`);
+  // });
 };
 
 const getCharacterWithQuotes = (req, res) => { 
