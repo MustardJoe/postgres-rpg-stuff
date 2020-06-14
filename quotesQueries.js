@@ -10,8 +10,6 @@
 
 const pool = require('./pool');
 
-console.log(pool.pool);
-
 //ROUTE FUNCTIONS for QUOTES
 const getQuotes = (req, res) => {
   pool.query('SELECT * FROM quotes ORDER BY id ASC', (error, results) => {
