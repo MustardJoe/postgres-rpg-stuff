@@ -30,6 +30,7 @@ const getCharactersById = (req, res) => {
   // });
 };
 
+/* eslint-disable-next-line no-unused-vars */
 const createCharacter = (req, res) => {
   //this route needs work - character posts to db, but browser/postman hang, waiting for
   //'end or response' or whatever
@@ -77,6 +78,8 @@ const updateCharacter = (req, res) => {
   );
 };
 
+//this route also does the right thing in the database, but hangs in the browser
+/* eslint-disable-next-line no-unused-vars */
 const deleteCharacter = (req, res) => {
   const id = parseInt(req.params.id);
 
