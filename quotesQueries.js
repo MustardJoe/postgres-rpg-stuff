@@ -1,13 +1,3 @@
-// const Pool = require('pg').Pool;
-
-// const pool = new Pool({
-//   user: 'jon',
-//   host: 'localhost',
-//   database: 'code_bros',
-//   password: 'password',
-//   port: 5432,
-// });
-
 const pool = require('./pool');
 
 //ROUTE FUNCTIONS for QUOTES

@@ -2,12 +2,12 @@ const pool = require('./pool');
 
 //ROUTE FUNCTIONS for EPISODES
 const getEpisodes = (req, res) => {
-  pool.query('SELECT * FROM episodes ORDER BY id ASC', (error, results) => {
-    if(error) {
-      throw error;
-    }
-    res.status(200).json(results.rows);
+  pool.select().table('episodes').then(episodes => {
+    res.send(episodes);
+  }).catch(error => {
+    return res.error(error);
   });
+
 };
 
 const getEpisodesById = (req, res) => {
