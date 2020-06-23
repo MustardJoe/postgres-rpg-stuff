@@ -60,6 +60,7 @@ function* jonGen(sent) {
 }
 
 let sent1 = 'it was a good day at the grocery store';
+let sent2 = 'hi pal! happy day!';
 
 let jonItter = jonGen(sent1);
 let curr  = jonItter.next();
