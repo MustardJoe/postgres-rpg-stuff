@@ -31,34 +31,36 @@ const getCharactersById = (req, res) => {
 };
 
 /* eslint-disable-next-line no-unused-vars */
-const createCharacter = (req, res) => {
-  //this route needs work - character posts to db, but browser/postman hang, waiting for
-  //'end or response' or whatever
+// const createCharacter = (req, res) => {
+//   //this route needs work - character posts to db, but browser/postman hang, waiting for
+//   //'end or response' or whatever
 
-  /* eslint-disable-next-line no-console */
-  console.log(req.body);  //last create got msg "...has been added with ID undefined"
+//   /* eslint-disable-next-line no-console */
+//   console.log(req.body);  //last create got msg "...has been added with ID undefined"
+//   const { name, actor, job, imgpath } = req.body;
+
+//   pool('characters').insert({ name: name, actor: actor, job: job, imgpath: imgpath }).then(
+
+//     character => {
+//       console.log('create', character);
+//       res.send(character
+//         // `Character ${name} has been added (POSTED) to the database with Character ID: ${res.insertId}`
+//       );
+//     }).catch(error => {
+//     return res.error(error);
+//   })
+//   ;
+  
+// };
+
+const createCharacter = async(req, res) => {
   const { name, actor, job, imgpath } = req.body;
-
-  pool('characters').insert({ name: name, actor: actor, job: job, imgpath: imgpath });
-  res => {
-    console.log('im here, in the dot then for create');
-    res.send(
-      `Character ${name} has been added (POSTED) to the database with Character ID: ${res.insertId}`
-    ).catch(error => {
-      return res(error);
-    });
-
-    // pool.query('INSERT INTO  characters (name, actor, job, imgpath) VALUES ($1, $2, $3, $4)',
-    // /* eslint-disable-next-line no-unused-vars */
-    //   [name, actor, job, imgpath], (error, result) => {
-    //     if(error) {
-    //       throw error;
-    //     }
-    //     res.status(201).send(
-    //       `Character ${name} has been added (POSTED) to the database with Character ID: ${res.insertId}`
-    //     );
-    //   });
-  };
+  try {
+    const character = await pool('characters').insert({ name: name, actor: actor, job: job, imgpath: imgpath })
+    res.send(character);
+  } catch(error) {
+    res.error(error);
+  }
 };
 
 const updateCharacter = (req, res) => {
