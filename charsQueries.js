@@ -56,7 +56,7 @@ const getCharactersById = (req, res) => {
 const createCharacter = async(req, res) => {
   const { name, actor, job, imgpath } = req.body;
   try {
-    const character = await pool('characters').insert({ name: name, actor: actor, job: job, imgpath: imgpath })
+    const character = await pool('characters').insert({ name: name, actor: actor, job: job, imgpath: imgpath });
     res.send(character);
   } catch(error) {
     res.error(error);
@@ -80,29 +80,44 @@ const updateCharacter = (req, res) => {
   );
 };
 
-//this route also does the right thing in the database, but hangs in the browser
-/* eslint-disable-next-line no-unused-vars */
+//WORKING DELETE ROUTE
 const deleteCharacter = (req, res) => {
   const id = parseInt(req.params.id);
 
-  pool('characters').where('id', id).del();
-  res => {
-    console.log('im here in character delete, i hope the response doesnt spin/hang forever');
-    res.send(`Character id ID: ${id} has been deleted from table 'characters'`)
-      .catch(error => {
-        return res(error);
-      });
-
-  };
-
-  // /* eslint-disable-next-line no-unused-vars */
-  // pool.query('DELETE FROM characters WHERE id = $1', [id], (error, result) => {
-  //   if(error) {
-  //     throw error;
-  //   }
-  //   res.status(200).send(`Character with ID: ${id} has been DELETED`);
-  // });
+  pool('characters').where('id', id).del().then(
+    () => {
+      res.send(`Character with ID: ${id} has been deleted from table 'characters'`);
+    })
+    .catch(error => {
+      return res(error);
+    });
 };
+
+//this route also does the right thing in the database, but hangs in the browser
+/* eslint-disable-next-line no-unused-vars */
+// const deleteCharacter = (req, res) => {
+//   const id = parseInt(req.params.id);
+
+//   pool('characters').where('id', id).del().then(
+//     res => {
+//       res.send(`Character id ID: ${id} has been deleted from table 'characters'`)
+//         .catch(error => {
+//           return res(error);
+        
+//         });
+//     });
+
+// };
+
+
+// /* eslint-disable-next-line no-unused-vars */
+// pool.query('DELETE FROM characters WHERE id = $1', [id], (error, result) => {
+//   if(error) {
+//     throw error;
+//   }
+//   res.status(200).send(`Character with ID: ${id} has been DELETED`);
+// });
+
 
 const getCharacterWithQuotes = (req, res) => { 
   const id = parseInt(req.params.id);
