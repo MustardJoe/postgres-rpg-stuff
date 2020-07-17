@@ -1,4 +1,4 @@
-const data1 = "ppaathrise";
+const data1 = 'ppaathrise';
 // return 4.
 
 function firstUniqChar(s) {
@@ -11,7 +11,7 @@ function firstUniqChar(s) {
   for(let j = 0; j < charArr.length; j++) {
     charCount[s.split('')[j]]++;
   }
-  let appearsOnlyOnce = []
+  let appearsOnlyOnce = [];
   for(let k = 0; k < charArr.length; k++) {
 
     if(charCount[charSet[k]] && charCount[charSet[k]] < 2) {

@@ -1,5 +1,5 @@
 let data1 = [2, 3, 5, 9];
-let data2 = [1, 6, 7, 9];
+// let data2 = [1, 6, 7, 9];
 
 const sum2 = (data, target) => {
   let dataHash = {};
