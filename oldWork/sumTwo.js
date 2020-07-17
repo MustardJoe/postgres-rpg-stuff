@@ -12,15 +12,19 @@ const sum2 = (data, target) => {
         dataHash[i].otherVals.push(data[j]);
       }
     }
+    /* eslint-disable-next-line no-console */
     console.log('put it on the', dataHash[i].otherVals);
     for(let k = 0; k < dataHash[i].otherVals.length; k++) {
+      /* eslint-disable-next-line no-console */
       console.log(dataHash[i].value === dataHash[i].otherVals[k]);
       if(dataHash[i].value + dataHash[i].otherVals[k] === target) {
         results = [dataHash[i].value, dataHash[i].otherVals[k]];
       }
     }
+    /* eslint-disable-next-line no-console */
     console.log('pizza');
   }
+  /* eslint-disable-next-line no-console */
   console.log(dataHash, 'results', results);
   return results;
 
