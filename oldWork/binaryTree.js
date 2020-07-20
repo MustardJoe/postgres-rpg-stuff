@@ -12,10 +12,12 @@
 
 // [1,2,3,4,5,6,7] 
 //            4 is the root
-//           / \
-//          3   5
-//         /    \
-//        2     6
+//           /  \
+//          3    5
+//         / \    \
+//        2   3.5  6
+//       /         \
+//      1           7
 
 /*
 newNode: data = 7
@@ -61,31 +63,88 @@ class BinaryTree {
     }  
   }
 
-  hasNode(possibleNode, comparitorNode = this.rootNode) {
+  hasNode(possibleData, currentNode = this.rootNode) {
     let result = false;
-    /* eslint-disable-next-line no-console */
-    console.log('hasNode running', possibleNode.data, comparitorNode.data, possibleNode.left, comparitorNode.left,
-      possibleNode.right, comparitorNode.right);
-    if(possibleNode.data === comparitorNode.data 
-      && possibleNode.left === comparitorNode.left
-      && possibleNode.right === comparitorNode.right) {
-      result = (possibleNode.data === comparitorNode.data 
-        && possibleNode.left === comparitorNode.left
-        && possibleNode.right === comparitorNode.right);
+
+    //compare possibleData agaisnt currentNode.data
+    //if possibleData and currentNode are same, return true
+
+    //check if we are on a leaf, if on leaf and data not the same, return false
+
+    //if two nodes not the same && not on leaf
+    
+    //IF only left child, :check if left child of currentNode
+    //if left child, run recursion call on that node
+
+    //If only right child
+    //run recursion on right side
+
+    //IF left and right child
+    // return this.hasNode(left) || this.hasNode(right)
+
+
+    if(possibleData === currentNode.data) {
+      return true;
     }
-    else if(comparitorNode.left) {
-      // comparitorNode = comparitorNode.left;
-      this.hasNode(possibleNode, comparitorNode.left);
+    if(currentNode.left === undefined && currentNode.right === undefined) {
+      return false;
     }
-    else if(comparitorNode.right) {
-      // comparitorNode = comparitorNode.right;
-      this.hasNode(possibleNode, comparitorNode.right);
+
+    else if(currentNode.right === undefined){
+      return this.hasNode(possibleData, currentNode.left);
     }
-    console.log('result', result);
-    return result;
+
+    else if(currentNode.left === undefined){
+      return this.hasNode(possibleData, currentNode.right);
+    }
+
+    else {
+      return this.hasNode(possibleData, currentNode.left) || this.hasNode(possibleData, currentNode.right);
+    }   
   }
 
-  deleteNode(tree, node) {
+  deleteNode(data, currentNode = this.rootNode) {
+    if(!this.hasNode(data)) return;
+
+    if(currentNode.left.data === data) {
+      let child = currentNode.left;
+      currentNode.left = undefined;
+      if(child.left) {
+        this.addNode(child.left);
+      }
+      if(child.right) {
+        this.addNode(child.right);
+      }
+      return;
+    }
+
+    if(currentNode.right === data) {
+      let child = currentNode.right;
+      currentNode.right = undefined;
+      if(child.left) {
+        this.addNode(child.left);
+      }
+      if(child.right) {
+        this.addNode(child.right);
+      }
+      return;
+      }
+    }
+
+    //find parent of node we are looking to delete and hang on to that info
+
+    //possible store child data before pointer is gone
+    //delete pointer to node being deleted (from parent)
+
+    //recursively add back the child nodes 
+
+
+
+
+
+
+
+
     //search through tree and delete node
     if(node.left === undefined && node.right === undefined) {
       node === undefined;
@@ -103,6 +162,10 @@ let node1 = new Node(5);
 let node2 = new Node(3);
 let node3 = new Node(8);
 let node4 = new Node(4);
+let node5 = new Node(-10);
+let node6 = new Node(33);
+let node7 = new Node(21);
+let node8 = new Node(7.6665);
 // console.log('node2', node2);
 
 let ourTree = new BinaryTree(node1);
@@ -112,6 +175,10 @@ ourTree.addNode(node2);
 ourTree.addNode(node3);
 // console.log(ourTree.rootNode);
 ourTree.addNode(node4);
+ourTree.addNode(node5);
+ourTree.addNode(node6);
+ourTree.addNode(node7);
+ourTree.addNode(node8);
 /* eslint-disable-next-line no-console */
 // console.log('Tree, after node insterts', ourTree.rootNode);
 /* eslint-disable-next-line no-console */
@@ -120,8 +187,9 @@ ourTree.addNode(node4);
 //   console.logging node2: ${node2}
 // `);
 // console.log('dofferent node 2, but actually the same', node2);
-ourTree.hasNode(node2);
+console.log(ourTree);
+console.log(ourTree.hasNode(3));
 
-
+console.log(ourTree.hasNode(4000));
 
 
