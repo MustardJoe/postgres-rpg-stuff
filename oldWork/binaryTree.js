@@ -7,7 +7,6 @@
       the tree must be "ordered"
 */
 
-const { delete } = require("../pool");
 
 
 
@@ -88,14 +87,14 @@ class BinaryTree {
 
   deleteNode(tree, node) {
     //search through tree and delete node
-    if(node.left === undefined && node.right === undefined ) {
+    if(node.left === undefined && node.right === undefined) {
       node === undefined;
     }
     if(node.left) {
-      this.deleteNode(node.left)
+      this.deleteNode(node.left);
     }
     if(node.right) {
-      this.deleteNode(node.right)
+      this.deleteNode(node.right);
     }
   }
 }
