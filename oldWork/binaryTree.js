@@ -128,34 +128,15 @@ class BinaryTree {
         this.addNode(child.right);
       }
       return;
-      }
-    }
-
-    //find parent of node we are looking to delete and hang on to that info
-
-    //possible store child data before pointer is gone
-    //delete pointer to node being deleted (from parent)
-
-    //recursively add back the child nodes 
-
-
-
-
-
-
-
-
-    //search through tree and delete node
-    if(node.left === undefined && node.right === undefined) {
-      node === undefined;
-    }
-    if(node.left) {
-      this.deleteNode(node.left);
-    }
-    if(node.right) {
-      this.deleteNode(node.right);
     }
   }
+
+  //find parent of node we are looking to delete and hang on to that info
+
+  //possible store child data before pointer is gone
+  //delete pointer to node being deleted (from parent)
+
+  //recursively add back the child nodes 
 }
 
 let node1 = new Node(5);
