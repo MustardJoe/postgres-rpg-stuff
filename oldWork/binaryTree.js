@@ -64,7 +64,7 @@ class BinaryTree {
   }
 
   hasNode(possibleData, currentNode = this.rootNode) {
-    let result = false;
+    
 
     //compare possibleData agaisnt currentNode.data
     //if possibleData and currentNode are same, return true

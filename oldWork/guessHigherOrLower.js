@@ -2,7 +2,7 @@
 const guess = (numb) => {
   let target = 2;
   return numb === target ? 0 : numb < target ? 1 : -1;
-}
+};
 
 var guessNumber = function(n, 
   high = n, low = 1, mid = low
