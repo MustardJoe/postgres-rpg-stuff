@@ -10,13 +10,13 @@
   "author": "Jon Forney => @GodzillaJonny",
   "license": "ISC",
   "dependencies": {
-    "eslint": "^7.1.0",
-    "knex": "^0.21.1"
+    "eslint": "^7.6.0",
+    "knex": "^0.21.2"
   },
   "devDependencies": {
     "express": "^4.17.1",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.4",
-    "pg": "^8.2.1"
+    "pg": "^8.3.0"
   }
 }
